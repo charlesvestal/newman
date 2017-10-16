@@ -9,4 +9,4 @@ Check out an [example sign](http://newman.surge.sh) backed by a [test spreadshee
 
 
 
-*saxMono font provided under license by [https://www.fontsquirrel.com/fonts/saxMono](fontSquirrel).*
+*saxMono font provided under license by [fontSquirrel](https://www.fontsquirrel.com/fonts/saxMono).*
