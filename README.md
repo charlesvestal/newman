@@ -5,4 +5,8 @@ Newman leverages the CSV-export functionality of Google Sheets to display a simu
 
 [Example sign](http://newman.surge.sh) backed by [test spreadsheet](https://docs.google.com/spreadsheets/d/1pDkyguANSUxDf3EVq42I6qiNyWRhbNNA3i8i9A1XUfU/edit#gid=0). 
 
+![alt text](https://github.com/charlesvestal/newman/raw/master/example.png "Example Newman Sign")
+
+
+
 *saxMono font provided under license by [https://www.fontsquirrel.com/fonts/saxMono](fontSquirrel).*
