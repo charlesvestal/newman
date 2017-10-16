@@ -1,0 +1,88 @@
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.3.6/papaparse.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script>
+        var sheetID = "1pDkyguANSUxDf3EVq42I6qiNyWRhbNNA3i8i9A1XUfU"; // Document ID of publicly viewable google sheet from URL, i.e. https://docs.google.com/spreadsheets/d/1pDkyguANSUxDf3EVq42I6qiNyWRhbNNA3i8i9A1XUfU/edit#gid=0
+
+        function rotateCharacters() {
+                 var rotate = 0;
+                            $(".target .rotate").each(function() {
+                                rotatelimit = 5
+                                rotate = (Math.floor(Math.random() * (rotatelimit * 2)) + 1) - rotatelimit;
+                                $(this).css({
+                                    "-webkit-transform": "rotate(" + rotate + "deg)",
+                                    "display": "inline-block"
+                                });
+                            });
+        }
+        
+        function loadData() {
+            Papa.parse("https://docs.google.com/spreadsheets/d/" + sheetID + "/export?gid=0&format=csv", {
+                download: true,
+                complete: function(results) {
+                    document.getElementById("content").innerHTML = "";
+                    results.data.forEach(
+                        function writeData(item) {
+                            var line = item[0].replace(/./g, "<span class='rotate'>$&</span>");
+                            line = line.replace(new RegExp("<span class='rotate'> </span>", "g"), "</span> <span class='word'>");
+                            document.getElementById("content").innerHTML += "<span class='line'><span class='word'>" + line + "</span></span>"; + "<br/>";
+                        });
+                        rotateCharacters();
+                }
+            });
+        };
+       
+        window.onload = function() {
+            loadData();
+            setInterval(function() {
+                loadData();
+            }, 30000);
+        };
+    </script>
+
+    <style type="text/css">
+       
+       @font-face {
+            font-family: 'saxmonoregular';
+            src: url('saxmono-webfont.woff') format('woff');
+        }
+
+        body {
+            background: black;
+            background-image: url("felt.jpg");
+            background-size: 1920px 1080px;
+            font-family: 'saxmonoregular', Arial;
+            font-size: 80px;
+            font-weight: 600;
+            text-align: center;
+            color: white;
+            text-shadow:  0px 0px 25px #333; 
+        }
+                
+        .target span {
+            margin: 0 .08em;
+        }
+        
+        .line {
+            display:block;
+        }
+        .word {
+            display: inline-block;
+        }
+
+        #center {
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+    </style>
+</head>
+
+<body>
+<div id="center">
+    <div class="target" id="content">
+
+    </div>
+</div>
+</body>
