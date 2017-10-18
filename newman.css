@@ -22,7 +22,7 @@ body {
     transform: translateY(-50%);
 }
     
-.newman span {
+#newman span {
     margin: 0 .08em;
 }
 
