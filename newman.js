@@ -5,12 +5,19 @@ function loadData(sheetID) {
                 document.getElementById("newman").innerHTML = "";
                 results.data.forEach(
                     function writeData(item) {
-                        // wrap each character in a span 
-                        var line = item[0].replace(/./g, "<span class='rotate'>$&</span>"); 
-                        //use spaces as word delimiters
-                        line = line.replace(new RegExp("<span class='rotate'> </span>", "g"), "</span> <span class='word'>"); 
-                        //insert each line
-                        document.getElementById("newman").innerHTML += "<span class='line'><span class='word'>" + line + "</span></span>"; + "<br/>"; 
+                        var lineOut = "<span class='line'>";                                // begin a new line
+                        var lineArray = item[0].split(" ");                                 // split into words
+                        
+                        lineArray.forEach(function(word) {
+                            var characterArray = word.split("");                            // split into characters
+                            lineOut += "<span class='word'>"                                // begin a new word      
+                            characterArray.forEach(function(character) {
+                                lineOut += "<span class='rotate'>" + character + "</span>"; // wrap each character
+                            });                           
+                            lineOut += "</span>" + " ";                                     // end the word and add a space
+                        });
+                        lineOut += "</span>"                                                // end the line
+                        document.getElementById("newman").innerHTML += lineOut;
                     });
                     rotateCharacters();
             }
