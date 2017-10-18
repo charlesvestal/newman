@@ -1,3 +1,11 @@
+function wrapInClass(s, name) {
+  return "<span class='" + name + "'>" + s + "</span>";
+}
+
+function splitMap(s, sep, f) {
+  return s.split(sep).map(f).join(sep);
+}
+
 function loadData(sheetID) {
         Papa.parse("https://docs.google.com/spreadsheets/d/" + sheetID + "/export?gid=0&format=csv", {
             download: true,
@@ -5,20 +13,18 @@ function loadData(sheetID) {
                 document.getElementById("newman").innerHTML = "";
                 results.data.forEach(
                     function writeData(item) {
-                        var lineOut = "<span class='line'>";                                // begin a new line
-                        var lineArray = item[0].split(" ");                                 // split into words
                         
-                        lineArray.forEach(function(word) {
-                            var characterArray = word.split("");                            // split into characters
-                            lineOut += "<span class='word'>"                                // begin a new word      
-                            characterArray.forEach(function(character) {
-                                lineOut += "<span class='rotate'>" + character + "</span>"; // wrap each character
-                            });                           
-                            lineOut += "</span>" + " ";                                     // end the word and add a space
+                    var line = splitMap(item[0], " ", function(word) {
+                        var resultWord = splitMap(word, "", function(char) {
+                            return wrapInClass(char, "rotate-character");
                         });
-                        lineOut += "</span>"                                                // end the line
-                        document.getElementById("newman").innerHTML += lineOut;
+                        return wrapInClass(resultWord, "word");
+                        });
+                    
+                    line = wrapInClass(line, "line");
+                        document.getElementById("newman").innerHTML += line;
                     });
+                    
                     rotateCharacters();
             }
         });
@@ -26,7 +32,7 @@ function loadData(sheetID) {
 
 function rotateCharacters() {
          var rotate = 0;
-                    $("#newman .rotate").each(function() {
+                    $("#newman .rotate-character").each(function() {
                         // set a +/- max character rotation in degrees 
                         rotatelimit = 5;  
                         rotate = (Math.floor(Math.random() * (rotatelimit * 2)) + 1) - rotatelimit;
