@@ -27,10 +27,14 @@ body {
 }
 
 .line {
-    display:block;
+    display: block;
 }
 
 .word {
     display: inline-block;
+}
+
+.character {
+  display: inline-block;
 }
 
